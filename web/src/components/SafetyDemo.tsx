@@ -51,7 +51,7 @@ export default function SafetyDemo() {
       <svg
         viewBox="0 0 520 200"
         role="img"
-        aria-label="Illustration: the robot stops when an obstacle appears in front of it, then continues when the path is clear."
+        aria-label="Minh họa: robot dừng khi có vật cản phía trước và đi tiếp khi đường thông."
       >
         <line x1="20" y1="150" x2="500" y2="150" className="floor" />
         <g ref={robotRef}>
@@ -67,9 +67,9 @@ export default function SafetyDemo() {
         </g>
       </svg>
       <div className="demo-caption">
-        <span className={stopped ? 'status-chip amber' : 'status-chip cyan'}>{stopped ? 'OBSTACLE_STOP' : 'DRIVING'}</span>
-        <span>{stopped ? 'Path blocked: the robot stops and reports the event' : 'Path clear: guiding at walking pace'}</span>
-        <i className="badge">simulated</i>
+        <span className={stopped ? 'status-chip amber' : 'status-chip cyan'}>{stopped ? 'OBSTACLE_STOP' : 'ĐANG ĐI'}</span>
+        <span>{stopped ? 'Đường bị chắn: robot dừng và báo sự kiện' : 'Đường thông: dẫn đoàn với tốc độ đi bộ'}</span>
+        <i className="badge">mô phỏng</i>
       </div>
     </div>
   )

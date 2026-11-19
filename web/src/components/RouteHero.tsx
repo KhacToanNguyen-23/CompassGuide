@@ -61,19 +61,18 @@ export default function RouteHero() {
       <svg
         viewBox="0 0 800 260"
         role="img"
-        aria-label="Illustration: a robot guides a group along a route and stops at three points of interest."
+        aria-label="Minh họa: robot dẫn đoàn đi dọc tuyến và dừng ở ba điểm tham quan."
       >
         <path ref={pathRef} d={PATH} className="route-base" />
         <path d={PATH} className="route-flow" />
         <g transform="translate(40 200)">
           <circle r="6" className="start-dot" />
           <text y="26" textAnchor="middle" className="svg-label">
-            Start
+            Xuất phát
           </text>
         </g>
         {points.map((p, i) => (
           <g key={i} transform={`translate(${p.x} ${p.y})`}>
-            {active === i && <circle r="10" className="pulse" />}
             <circle r="11" className={active === i ? 'poi active' : 'poi'} />
             <text y="4" textAnchor="middle" className="poi-no">
               {i + 1}
@@ -88,9 +87,9 @@ export default function RouteHero() {
       <div className="route-caption">
         <span className={active >= 0 ? 'dot live' : 'dot'} aria-hidden="true" />
         {active >= 0
-          ? `Stop ${active + 1}: the robot has stopped and is playing the narration`
-          : 'Guiding the group to the next stop'}
-        <span className="muted"> · illustrated route</span>
+          ? `Điểm ${active + 1}: robot đã dừng và đang phát thuyết minh`
+          : 'Đang dẫn đoàn tới điểm tiếp theo'}
+        <span className="muted"> · minh họa tuyến</span>
       </div>
     </div>
   )

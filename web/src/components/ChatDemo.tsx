@@ -3,12 +3,12 @@ import { prefersReducedMotion } from '../lib/motion'
 
 const PAIRS = [
   {
-    q: 'What will we see at the next stop?',
-    a: 'Next is stop 2 on this route. The robot will stop there and play its narration.',
+    q: 'Điểm dừng tiếp theo có gì?',
+    a: 'Tiếp theo là điểm 2 trên tuyến này. Robot sẽ dừng lại và phát phần thuyết minh.',
   },
   {
-    q: 'Can you drive the robot closer?',
-    a: 'I can answer questions about the tour, but I cannot control the robot. Please ask your guide.',
+    q: 'Bạn lái robot lại gần hơn được không?',
+    a: 'Tôi chỉ trả lời câu hỏi về chuyến tham quan, không điều khiển được robot. Bạn vui lòng nhờ hướng dẫn viên.',
   },
 ]
 
@@ -38,24 +38,14 @@ export default function ChatDemo() {
   return (
     <div className="demo-card chat">
       <div className="control-head">
-        <strong>Ask the guide</strong>
-        <i className="badge">simulated</i>
+        <strong>Hỏi hướng dẫn viên</strong>
+        <i className="badge">mô phỏng</i>
       </div>
       <div className="bubbles" aria-live="off">
         <div className="bubble user">{q}</div>
-        <div className="bubble bot">
-          {chars === 0 ? (
-            <span className="typing" aria-hidden="true">
-              <i />
-              <i />
-              <i />
-            </span>
-          ) : (
-            a.slice(0, chars)
-          )}
-        </div>
+        <div className="bubble bot">{chars === 0 ? <span className="muted">Đang trả lời…</span> : a.slice(0, chars)}</div>
       </div>
-      <p className="fine">Answers come only from approved content.</p>
+      <p className="fine">Câu trả lời chỉ lấy từ nội dung đã được duyệt.</p>
     </div>
   )
 }

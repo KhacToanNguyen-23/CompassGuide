@@ -36,7 +36,7 @@ export default function CountUp({ to, decimals = 0, prefix = '', suffix = '' }: 
   return (
     <span ref={ref}>
       {prefix}
-      {value.toFixed(decimals)}
+      {value.toFixed(decimals).replace('.', ',')}
       {suffix}
     </span>
   )
