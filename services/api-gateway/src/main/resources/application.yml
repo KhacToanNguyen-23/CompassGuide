@@ -29,14 +29,14 @@ spring:
             - StripPrefix=1
         # Chỉ lộ trạng thái (GET). Lệnh điều khiển robot KHÔNG đi qua gateway.
         - id: robot-state
-          uri: ${ROBOT_GATEWAY_URL:http://robot-gateway:8080}
+          uri: ${ROBOT_SERVICE_URL:http://robot-service:8080}
           predicates:
             - Path=/api/robots/*/state
             - Method=GET
           filters:
             - StripPrefix=1
         - id: chat
-          uri: ${AI_SERVICE_URL:http://ai-service:8080}
+          uri: ${ASSISTANT_SERVICE_URL:http://assistant-service:8080}
           predicates:
             - Path=/api/chat
           filters:
