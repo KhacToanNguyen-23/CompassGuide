@@ -1,0 +1,30 @@
+name: robot
+
+# Chưa được chạy thử trên GitHub. Nếu lỗi, sửa tại đây.
+on:
+  pull_request:
+    paths:
+      - "robot/**"
+      - "contracts/mqtt.md"
+      - ".github/workflows/robot.yml"
+  push:
+    branches: [main]
+    paths:
+      - "robot/**"
+
+jobs:
+  colcon-build:
+    runs-on: ubuntu-latest
+    container: ros:humble
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cài colcon
+        run: |
+          apt-get update
+          apt-get install -y python3-colcon-common-extensions
+      - name: Build các package ROS 2
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build
+        working-directory: robot
