@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/** NỘI BỘ: chỉ robot-gateway gọi. Không đi qua api-gateway. */
+/** NỘI BỘ: chỉ robot-service gọi. Không đi qua api-gateway. */
 @RestController
 @RequestMapping("/internal/tours")
 public class InternalEventController {

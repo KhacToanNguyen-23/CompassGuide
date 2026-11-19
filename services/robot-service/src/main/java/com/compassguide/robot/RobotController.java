@@ -1,4 +1,4 @@
-package com.compassguide.gateway;
+package com.compassguide.robot;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-/** Hợp đồng: contracts/openapi/robot-gateway.yaml. Chưa cài MQTT. */
+/** Hợp đồng: contracts/openapi/robot-service.yaml. Chưa cài MQTT. */
 @RestController
 @RequestMapping("/robots")
 public class RobotController {

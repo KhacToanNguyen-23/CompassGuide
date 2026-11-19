@@ -1,4 +1,4 @@
-package com.compassguide.gateway;
+package com.compassguide.robot;
 
 import java.time.Instant;
 

@@ -1,4 +1,4 @@
-package com.compassguide.gateway;
+package com.compassguide.robot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

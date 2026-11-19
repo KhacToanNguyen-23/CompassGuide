@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   application:
-    name: robot-gateway
+    name: robot-service
 services:
   tour-service:
     url: ${TOUR_SERVICE_URL:http://tour-service:8080}

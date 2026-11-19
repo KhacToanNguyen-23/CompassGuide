@@ -1,4 +1,4 @@
-package com.compassguide.gateway;
+package com.compassguide.robot;
 
 /** Tên topic theo contracts/mqtt.md. Chỉ định nghĩa ở đây, không ghi cứng chỗ khác. */
 public final class MqttTopics {
