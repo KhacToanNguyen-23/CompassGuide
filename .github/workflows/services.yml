@@ -1,12 +1,21 @@
-name: CI
+name: services
 
 on:
   pull_request:
+    paths:
+      - "services/**"
+      - "contracts/**"
+      - "docker-compose.yml"
+      - ".github/workflows/services.yml"
   push:
     branches: [main]
+    paths:
+      - "services/**"
+      - "contracts/**"
+      - "docker-compose.yml"
 
 jobs:
-  services:
+  build:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -22,19 +31,6 @@ jobs:
       - name: Build và test ${{ matrix.service }}
         run: mvn -B verify
         working-directory: services/${{ matrix.service }}
-
-  web:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-      - name: Build web
-        run: |
-          npm install
-          npm run build
-        working-directory: web
 
   compose:
     runs-on: ubuntu-latest
