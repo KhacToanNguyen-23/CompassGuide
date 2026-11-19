@@ -1,0 +1,14 @@
+# Mở shell dev:  docker compose run --rm dev
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: compassguide-robot-dev
+    working_dir: /ws
+    volumes:
+      - .:/ws
+    environment:
+      ROS_DOMAIN_ID: "7"
+    stdin_open: true
+    tty: true

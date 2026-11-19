@@ -1,0 +1,30 @@
+# Secrets: KHÔNG BAO GIỜ commit chứng chỉ AWS IoT, khóa, mật khẩu
+*.pem
+*.crt
+*.key
+*.cert
+certs/
+.env
+.env.*
+secrets/
+
+# ROS 2 / colcon
+build/
+install/
+log/
+
+# Âm thanh đồng bộ từ S3 (tạo lại bằng script)
+audio/*
+!audio/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Hệ điều hành / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
