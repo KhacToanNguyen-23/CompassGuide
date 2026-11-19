@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        service: [api-gateway, tour-service, robot-gateway, content-service, ai-service]
+        service: [api-gateway, tour-service, robot-service, content-service, assistant-service]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4

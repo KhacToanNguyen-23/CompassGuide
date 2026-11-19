@@ -22,22 +22,22 @@ services:
     environment:
       TOUR_SERVICE_URL: http://tour-service:8080
       CONTENT_SERVICE_URL: http://content-service:8080
-      ROBOT_GATEWAY_URL: http://robot-gateway:8080
-      AI_SERVICE_URL: http://ai-service:8080
-    depends_on: [tour-service, content-service, robot-gateway, ai-service]
+      ROBOT_SERVICE_URL: http://robot-service:8080
+      ASSISTANT_SERVICE_URL: http://assistant-service:8080
+    depends_on: [tour-service, content-service, robot-service, assistant-service]
 
   tour-service:
     build: ./services/tour-service
     ports:
       - "8081:8080"
     environment:
-      ROBOT_GATEWAY_URL: http://robot-gateway:8080
+      ROBOT_SERVICE_URL: http://robot-service:8080
       CONTENT_SERVICE_URL: http://content-service:8080
       DYNAMODB_ENDPOINT: http://dynamodb-local:8000
     depends_on: [dynamodb-local]
 
-  robot-gateway:
-    build: ./services/robot-gateway
+  robot-service:
+    build: ./services/robot-service
     ports:
       - "8082:8080"
     environment:
@@ -54,8 +54,8 @@ services:
       DYNAMODB_ENDPOINT: http://dynamodb-local:8000
     depends_on: [dynamodb-local]
 
-  ai-service:
-    build: ./services/ai-service
+  assistant-service:
+    build: ./services/assistant-service
     ports:
       - "8084:8080"
 
