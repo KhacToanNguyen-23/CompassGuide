@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: ai-service
+  version: 0.1.0
+  description: Trợ lý hỏi đáp. Chỉ đọc kho kiến thức, không có đường tới robot. Gọi qua gateway tại /api/chat.
+paths:
+  /chat:
+    post:
+      summary: Hỏi trợ lý về campus
+      operationId: chat
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Câu trả lời
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatResponse'
+components:
+  schemas:
+    ChatRequest:
+      type: object
+      required: [message]
+      properties:
+        sessionId:
+          type: string
+        message:
+          type: string
+    ChatResponse:
+      type: object
+      properties:
+        answer:
+          type: string
+          description: Nếu kho kiến thức không có thông tin, trợ lý nói rõ là không biết
+        sources:
+          type: array
+          items:
+            type: string

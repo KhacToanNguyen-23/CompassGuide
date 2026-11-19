@@ -3,6 +3,14 @@ server:
 spring:
   application:
     name: tour-service
+services:
+  robot-gateway:
+    url: ${ROBOT_GATEWAY_URL:http://robot-gateway:8080}
+  content-service:
+    url: ${CONTENT_SERVICE_URL:http://content-service:8080}
+aws:
+  dynamodb:
+    endpoint: ${DYNAMODB_ENDPOINT:}
 management:
   endpoints:
     web:

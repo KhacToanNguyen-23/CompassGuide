@@ -1,8 +1,47 @@
 server:
   port: 8080
+
 spring:
   application:
     name: api-gateway
+  cloud:
+    gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "http://localhost:5173"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+      routes:
+        - id: tours
+          uri: ${TOUR_SERVICE_URL:http://tour-service:8080}
+          predicates:
+            - Path=/api/tours/**
+          filters:
+            - StripPrefix=1
+        - id: content
+          uri: ${CONTENT_SERVICE_URL:http://content-service:8080}
+          predicates:
+            - Path=/api/routes/**,/api/pois/**
+          filters:
+            - StripPrefix=1
+        # Chỉ lộ trạng thái (GET). Lệnh điều khiển robot KHÔNG đi qua gateway.
+        - id: robot-state
+          uri: ${ROBOT_GATEWAY_URL:http://robot-gateway:8080}
+          predicates:
+            - Path=/api/robots/*/state
+            - Method=GET
+          filters:
+            - StripPrefix=1
+        - id: chat
+          uri: ${AI_SERVICE_URL:http://ai-service:8080}
+          predicates:
+            - Path=/api/chat
+          filters:
+            - StripPrefix=1
+
 management:
   endpoints:
     web:

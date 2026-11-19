@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: robot-gateway
+  version: 0.1.0
+  description: Cầu nối MQTT với robot. Chỉ GET state được lộ ra ngoài qua gateway; commands chỉ gọi nội bộ.
+paths:
+  /robots/{robotId}/commands:
+    post:
+      summary: NỘI BỘ. Gửi lệnh cấp tour cho robot qua MQTT
+      operationId: sendCommand
+      parameters:
+        - $ref: '#/components/parameters/RobotId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Command'
+      responses:
+        '202':
+          description: Đã publish lệnh, chờ ack
+        '409':
+          description: Robot offline
+  /robots/{robotId}/state:
+    get:
+      summary: Trạng thái mới nhất của robot
+      operationId: getRobotState
+      parameters:
+        - $ref: '#/components/parameters/RobotId'
+      responses:
+        '200':
+          description: Trạng thái
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RobotState'
+        '404':
+          description: Chưa nhận được trạng thái nào
+components:
+  parameters:
+    RobotId:
+      name: robotId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Command:
+      type: object
+      required: [cmdId, action]
+      properties:
+        cmdId:
+          type: string
+          description: Duy nhất; robot bỏ qua lệnh đã xử lý
+        tourId:
+          type: string
+        action:
+          type: string
+          enum: [START, PAUSE, RESUME, END]
+        routeId:
+          type: string
+    RobotState:
+      type: object
+      properties:
+        online:
+          type: boolean
+        status:
+          type: string
+          description: Xem contracts/mqtt.md
+        tourId:
+          type: string
+        poiIndex:
+          type: integer
+        battery:
+          type: integer
+        lastSeen:
+          type: string
+          format: date-time

@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: content-service
+aws:
+  dynamodb:
+    endpoint: ${DYNAMODB_ENDPOINT:}
 management:
   endpoints:
     web:

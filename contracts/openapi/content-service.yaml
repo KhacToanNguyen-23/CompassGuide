@@ -1,0 +1,136 @@
+openapi: 3.0.3
+info:
+  title: content-service
+  version: 0.1.0
+  description: Tuyến, điểm tham quan, thuyết minh. Gọi qua gateway tại /api/routes và /api/pois.
+paths:
+  /routes:
+    get:
+      summary: Danh sách tuyến
+      operationId: listRoutes
+      responses:
+        '200':
+          description: Tuyến
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Route'
+  /routes/{routeId}:
+    get:
+      summary: Chi tiết tuyến
+      operationId: getRoute
+      parameters:
+        - name: routeId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Tuyến
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Route'
+        '404':
+          description: Không tìm thấy
+    put:
+      summary: Tạo hoặc sửa tuyến (admin)
+      operationId: putRoute
+      parameters:
+        - name: routeId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Route'
+      responses:
+        '200':
+          description: Đã lưu
+  /pois/{poiId}:
+    get:
+      summary: Chi tiết điểm tham quan
+      operationId: getPoi
+      parameters:
+        - name: poiId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Điểm
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poi'
+    put:
+      summary: Tạo hoặc sửa điểm (admin)
+      operationId: putPoi
+      parameters:
+        - name: poiId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poi'
+      responses:
+        '200':
+          description: Đã lưu
+  /pois/{poiId}/narration:
+    post:
+      summary: Tạo lại âm thanh thuyết minh bằng Polly (admin)
+      operationId: generateNarration
+      parameters:
+        - name: poiId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '202':
+          description: Đã nhận yêu cầu tạo âm thanh
+components:
+  schemas:
+    Route:
+      type: object
+      properties:
+        routeId:
+          type: string
+        name:
+          type: string
+        poiIds:
+          type: array
+          description: Thứ tự điểm dừng
+          items:
+            type: string
+    Poi:
+      type: object
+      properties:
+        poiId:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        x:
+          type: number
+        y:
+          type: number
+        yaw:
+          type: number
+        audioKey:
+          type: string
+          description: Khóa tệp âm thanh trên S3

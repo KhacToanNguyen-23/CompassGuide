@@ -3,6 +3,12 @@ server:
 spring:
   application:
     name: robot-gateway
+services:
+  tour-service:
+    url: ${TOUR_SERVICE_URL:http://tour-service:8080}
+mqtt:
+  host: ${MQTT_HOST:mosquitto}
+  port: ${MQTT_PORT:1883}
 management:
   endpoints:
     web:

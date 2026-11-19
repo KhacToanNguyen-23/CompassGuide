@@ -1,0 +1,144 @@
+openapi: 3.0.3
+info:
+  title: tour-service
+  version: 0.1.0
+  description: Vòng đời tour. Gọi qua gateway tại /api/tours.
+paths:
+  /tours:
+    post:
+      summary: Tạo tour và gửi lệnh START cho robot
+      operationId: createTour
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTourRequest'
+      responses:
+        '201':
+          description: Tour đã tạo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tour'
+        '409':
+          description: Robot không sẵn sàng hoặc đang có tour khác
+    get:
+      summary: Lịch sử tour
+      operationId: listTours
+      responses:
+        '200':
+          description: Danh sách tour, mới nhất trước
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tour'
+  /tours/{tourId}:
+    get:
+      summary: Chi tiết tour
+      operationId: getTour
+      parameters:
+        - $ref: '#/components/parameters/TourId'
+      responses:
+        '200':
+          description: Tour
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tour'
+        '404':
+          description: Không tìm thấy
+  /tours/{tourId}/pause:
+    post:
+      summary: Tạm dừng tour
+      operationId: pauseTour
+      parameters:
+        - $ref: '#/components/parameters/TourId'
+      responses:
+        '202':
+          description: Đã gửi lệnh
+        '409':
+          description: Trạng thái không cho phép
+  /tours/{tourId}/resume:
+    post:
+      summary: Tiếp tục tour
+      operationId: resumeTour
+      parameters:
+        - $ref: '#/components/parameters/TourId'
+      responses:
+        '202':
+          description: Đã gửi lệnh
+        '409':
+          description: Trạng thái không cho phép
+  /tours/{tourId}/end:
+    post:
+      summary: Kết thúc tour sớm
+      operationId: endTour
+      parameters:
+        - $ref: '#/components/parameters/TourId'
+      responses:
+        '202':
+          description: Đã gửi lệnh
+        '409':
+          description: Trạng thái không cho phép
+  /internal/tours/{tourId}/events:
+    post:
+      summary: NỘI BỘ. robot-gateway báo ack hoặc sự kiện của robot
+      operationId: reportRobotEvent
+      parameters:
+        - $ref: '#/components/parameters/TourId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RobotEvent'
+      responses:
+        '204':
+          description: Đã ghi nhận
+components:
+  parameters:
+    TourId:
+      name: tourId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    CreateTourRequest:
+      type: object
+      required: [routeId, robotId]
+      properties:
+        routeId:
+          type: string
+        robotId:
+          type: string
+    Tour:
+      type: object
+      properties:
+        tourId:
+          type: string
+        routeId:
+          type: string
+        robotId:
+          type: string
+        status:
+          type: string
+          enum: [CREATED, RUNNING, PAUSED, COMPLETED, ABORTED, FAILED]
+        createdAt:
+          type: string
+          format: date-time
+    RobotEvent:
+      type: object
+      required: [type, ts]
+      properties:
+        type:
+          type: string
+          description: Ví dụ ARRIVED, OBSTACLE_STOP, TOUR_COMPLETED, CMD_ACK
+        detail:
+          type: string
+        ts:
+          type: string
+          format: date-time
