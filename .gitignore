@@ -1,0 +1,43 @@
+# Secrets: KHÔNG BAO GIỜ commit chứng chỉ, khóa, mật khẩu
+*.pem
+*.crt
+*.key
+*.cert
+certs/
+.env
+.env.*
+secrets/
+
+# ROS 2 / colcon
+robot/build/
+robot/install/
+robot/log/
+build/
+install/
+log/
+
+# Âm thanh đồng bộ từ S3 (tạo lại bằng script)
+robot/audio/*
+!robot/audio/.gitkeep
+
+# AWS SAM / CDK
+.aws-sam/
+cdk.out/
+samconfig.toml
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Node / web
+node_modules/
+web/dist/
+web/build/
+
+# Hệ điều hành / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
