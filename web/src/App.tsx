@@ -1,45 +1,33 @@
+import ChatDemo from './components/ChatDemo'
 import CountUp from './components/CountUp'
+import Marquee from './components/Marquee'
 import Reveal from './components/Reveal'
 import RouteHero from './components/RouteHero'
+import SafetyDemo from './components/SafetyDemo'
 import StateTicker from './components/StateTicker'
 
 const REPO_URL = 'https://github.com/KhacToanNguyen-23/CompassGuide'
 
 const steps = [
-  { title: 'Choose a route', text: 'Staff open the web app, pick a tour route and press Start.' },
+  { title: 'Choose a route', text: 'Staff pick a tour route and press Start from the web app.' },
   { title: 'The robot leads', text: 'It drives slowly along a mapped route while the group follows on foot.' },
   { title: 'Stop and narrate', text: 'At each point of interest the robot stops completely, then plays a stored narration.' },
-  { title: 'Monitor remotely', text: 'A dashboard shows position, current stop, battery and live events.' },
+  { title: 'Monitor remotely', text: 'Position, current stop, battery and events stream back to staff.' },
 ]
 
-const features = [
+const more = [
   { title: 'Fixed guided routes', text: 'One mapped area, one or two routes, three to five stops each, at a pace suited to walking.' },
-  { title: 'Safety first', text: 'The robot stops on obstacles or lost connection, and a physical emergency stop cuts motor power in hardware.', safety: true },
   { title: 'Works offline', text: 'Map, route and audio live on the robot. Losing the network costs new commands, never the ability to stop.' },
-  { title: 'Tour control from the web', text: 'Start, pause, resume and end a tour from a single web app.' },
-  { title: 'Real-time monitoring', text: 'Robot state and events stream to the dashboard through AWS IoT Core.' },
-  { title: 'AI assistant', text: 'Visitors ask about the campus and get answers from approved content. The AI cannot control the robot.' },
+  { title: 'Monitoring and history', text: 'Every tour leaves a trail of events that staff can review afterwards.' },
 ]
 
 const topics = ['cmd', 'ack', 'state', 'event', 'presence']
-
-const stack = [
-  'ROS 2',
-  'Nav2',
-  'Java 21 + Spring Boot',
-  'React + TypeScript',
-  'AWS IoT Core',
-  'DynamoDB',
-  'Amazon Bedrock',
-  'Amazon Polly',
-  'Docker',
-]
 
 const status: { tone: 'done' | 'doing' | 'next'; label: string; text: string }[] = [
   { tone: 'done', label: 'Done', text: 'Microservice architecture, API and MQTT contracts, five service skeletons, robot simulator, Docker setup.' },
   { tone: 'doing', label: 'In progress', text: 'End-to-end control flow: from pressing Start on the web to the simulated robot responding.' },
   { tone: 'doing', label: 'In progress', text: 'A simulated robot driving through stops with ROS 2 and Nav2.' },
-  { tone: 'next', label: 'Next', text: 'Narration, AI assistant, digital twin, and tests on the real robot.' },
+  { tone: 'next', label: 'Next', text: 'Operator dashboard, narration, AI assistant, digital twin, and tests on the real robot.' },
 ]
 
 function FlowLink({ label }: { label: string }) {
@@ -62,7 +50,7 @@ export default function App() {
           </a>
           <div className="nav-links">
             <a href="#how">How it works</a>
-            <a href="#features">Features</a>
+            <a href="#product">Product</a>
             <a href="#architecture">Architecture</a>
             <a href="#status">Status</a>
           </div>
@@ -74,26 +62,30 @@ export default function App() {
 
       <main id="top">
         <div className="hero">
-          <div className="wrap">
-            <span className="eyebrow">Proposed for First Cloud AI Journey</span>
-            <h1>
-              The autonomous <span className="grad">tour-guide robot</span>, powered by AWS
-            </h1>
-            <p className="lead">
-              CompassGuide leads a group on foot along a mapped route, stops to narrate each point of interest, and lets
-              staff control and monitor the tour from a single web app.
-            </p>
-            <div className="actions">
-              <a className="btn primary" href="#how">
-                See how it works
-              </a>
-              <a className="btn" href={REPO_URL} target="_blank" rel="noreferrer">
-                View on GitHub
-              </a>
+          <div className="wrap hero-grid">
+            <div>
+              <span className="eyebrow">Proposed for First Cloud AI Journey</span>
+              <h1>
+                The autonomous <span className="grad">tour-guide robot</span>, powered by AWS
+              </h1>
+              <p className="lead">
+                CompassGuide leads a group on foot along a mapped route, stops to narrate each point of interest, and lets
+                staff control and monitor the tour from a single web app.
+              </p>
+              <div className="actions">
+                <a className="btn primary" href="#how">
+                  See how it works
+                </a>
+                <a className="btn" href={REPO_URL} target="_blank" rel="noreferrer">
+                  View on GitHub
+                </a>
+              </div>
             </div>
             <RouteHero />
           </div>
         </div>
+
+        <Marquee />
 
         <section className="stats-band" aria-label="Design targets">
           <div className="wrap stats">
@@ -143,28 +135,31 @@ export default function App() {
           </div>
         </section>
 
-        <section id="features" className="alt">
-          <div className="wrap">
+        <section id="product" className="alt show-section">
+          <div className="wrap show">
             <Reveal>
-              <h2>Features</h2>
-              <p className="sub">Designed from the requirements specification the team wrote for the project.</p>
+              <span className="kicker">Safety layer</span>
+              <h2>It stops first, and reports second</h2>
+              <p className="sub">
+                The decision to stop lives on the robot, not in the cloud. An obstacle or a lost connection makes it stop on
+                its own, and a physical emergency stop cuts motor power in hardware.
+              </p>
+              <ul className="ticks">
+                <li>Stops when an obstacle blocks the path</li>
+                <li>Never waits for the network to stop</li>
+                <li>Hardware emergency stop, independent of software</li>
+              </ul>
             </Reveal>
-            <div className="grid cols-3">
-              {features.map((f, i) => (
-                <Reveal key={f.title} delay={(i % 3) * 80}>
-                  <div className={f.safety ? 'card safety' : 'card'}>
-                    <h3>{f.title}</h3>
-                    <p>{f.text}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
+            <Reveal delay={120}>
+              <SafetyDemo />
+            </Reveal>
           </div>
         </section>
 
-        <section id="live">
-          <div className="wrap split">
+        <section className="show-section">
+          <div className="wrap show rev">
             <Reveal>
+              <span className="kicker">Live link to the cloud</span>
               <h2>Every tour is a stream of small messages</h2>
               <p className="sub">
                 The cloud sends tour-level commands only. The robot answers with acknowledgements, a state heartbeat and
@@ -184,7 +179,47 @@ export default function App() {
           </div>
         </section>
 
-        <section id="architecture" className="alt">
+        <section className="alt show-section">
+          <div className="wrap show">
+            <Reveal>
+              <span className="kicker">AI assistant</span>
+              <h2>Visitors can ask. The AI cannot drive.</h2>
+              <p className="sub">
+                A read-only assistant answers questions about the campus from approved content. It has no path to the robot,
+                by design.
+              </p>
+              <ul className="ticks">
+                <li>Answers only from approved content</li>
+                <li>Says so when it does not know</li>
+                <li>No access to robot controls</li>
+              </ul>
+            </Reveal>
+            <Reveal delay={120}>
+              <ChatDemo />
+            </Reveal>
+          </div>
+        </section>
+
+        <section>
+          <div className="wrap">
+            <Reveal>
+              <h2>And the basics, done carefully</h2>
+              <p className="sub">The parts that make a guided tour dependable.</p>
+            </Reveal>
+            <div className="grid cols-3">
+              {more.map((f, i) => (
+                <Reveal key={f.title} delay={i * 80}>
+                  <div className="card">
+                    <h3>{f.title}</h3>
+                    <p>{f.text}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section id="architecture" className="dark-band">
           <div className="wrap">
             <Reveal>
               <h2>Architecture</h2>
@@ -200,7 +235,7 @@ export default function App() {
                   <p>Operator interface</p>
                   <ul>
                     <li>Tour control</li>
-                    <li>Dashboard</li>
+                    <li>Dashboard (planned)</li>
                     <li>AI chat</li>
                   </ul>
                 </div>
@@ -229,23 +264,7 @@ export default function App() {
           </div>
         </section>
 
-        <section id="stack">
-          <div className="wrap">
-            <Reveal>
-              <h2>Built with</h2>
-              <p className="sub">Each part uses the tool that fits it best.</p>
-              <div className="chips">
-                {stack.map((s) => (
-                  <span className="chip" key={s}>
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </Reveal>
-          </div>
-        </section>
-
-        <section id="status" className="alt">
+        <section id="status">
           <div className="wrap">
             <Reveal>
               <h2>Status</h2>
@@ -264,33 +283,21 @@ export default function App() {
           </div>
         </section>
 
-        <section id="start">
+        <section className="cta-band">
           <div className="wrap">
             <Reveal>
-              <h2>Get started</h2>
-              <p className="sub">Everything lives in one repository.</p>
+              <h2>Follow the build</h2>
+              <p className="sub">Everything lives in one open repository: services, web app, robot workspace and contracts.</p>
+              <div className="actions center">
+                <a className="btn light" href={REPO_URL} target="_blank" rel="noreferrer">
+                  Source code
+                </a>
+                <a className="btn ghost" href={`${REPO_URL}/tree/dev/contracts`} target="_blank" rel="noreferrer">
+                  Read the contracts
+                </a>
+              </div>
+              <code className="cmd">docker compose up --build</code>
             </Reveal>
-            <div className="grid cols-3">
-              <Reveal>
-                <a className="card link" href={REPO_URL} target="_blank" rel="noreferrer">
-                  <h3>Source code</h3>
-                  <p>Services, web app, robot workspace and simulator on GitHub.</p>
-                </a>
-              </Reveal>
-              <Reveal delay={80}>
-                <a className="card link" href={`${REPO_URL}/tree/dev/contracts`} target="_blank" rel="noreferrer">
-                  <h3>Contracts</h3>
-                  <p>MQTT topics, OpenAPI files and the service architecture.</p>
-                </a>
-              </Reveal>
-              <Reveal delay={160}>
-                <div className="card">
-                  <h3>Run it locally</h3>
-                  <p>With Docker Desktop installed:</p>
-                  <code className="cmd">docker compose up --build</code>
-                </div>
-              </Reveal>
-            </div>
           </div>
         </section>
       </main>
