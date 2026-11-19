@@ -1,4 +1,4 @@
-package com.compassguide.ai;
+package com.compassguide.assistant;
 
 public record ChatRequest(String sessionId, String message) {
 }

@@ -2,7 +2,7 @@ server:
   port: 8080
 spring:
   application:
-    name: ai-service
+    name: assistant-service
 management:
   endpoints:
     web:

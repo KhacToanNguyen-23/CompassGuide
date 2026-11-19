@@ -1,4 +1,4 @@
-package com.compassguide.ai;
+package com.compassguide.assistant;
 
 import java.util.List;
 
