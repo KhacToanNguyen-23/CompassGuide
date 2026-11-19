@@ -1,0 +1,57 @@
+# Chạy toàn bộ platform ở máy dev:  docker compose up --build
+services:
+  mosquitto:
+    image: eclipse-mosquitto:2
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./infra/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+
+  dynamodb-local:
+    image: amazon/dynamodb-local
+    command: ["-jar", "DynamoDBLocal.jar", "-sharedDb", "-inMemory"]
+    ports:
+      - "8000:8000"
+
+  api-gateway:
+    build: ./services/api-gateway
+    ports:
+      - "8080:8080"
+
+  tour-service:
+    build: ./services/tour-service
+    ports:
+      - "8081:8080"
+    depends_on: [dynamodb-local, mosquitto]
+
+  robot-gateway:
+    build: ./services/robot-gateway
+    ports:
+      - "8082:8080"
+    depends_on: [mosquitto]
+
+  content-service:
+    build: ./services/content-service
+    ports:
+      - "8083:8080"
+    depends_on: [dynamodb-local]
+
+  ai-service:
+    build: ./services/ai-service
+    ports:
+      - "8084:8080"
+
+  web:
+    build: ./web
+    ports:
+      - "3000:80"
+    depends_on: [api-gateway]
+
+  # Robot giả lập: dùng khi chưa có robot thật
+  robot-simulator:
+    build: ./simulator
+    environment:
+      ROBOT_ID: robot-01
+      MQTT_HOST: mosquitto
+    depends_on: [mosquitto]
