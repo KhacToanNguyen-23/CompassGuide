@@ -1,6 +1,6 @@
 # CompassGuide (platform)
 
-Platform của CompassGuide: robot tự hành dẫn đoàn khách tham quan theo tuyến cố định, điều khiển và giám sát qua web và AWS. Phần robot nằm ở repo riêng (`CompassGuide-Robot`).
+Platform của CompassGuide: robot tự hành dẫn đoàn khách tham quan theo tuyến cố định, điều khiển và giám sát qua web và AWS. Phần robot nằm trong thư mục `robot/` của chính repo này.
 
 SRS: https://claude.ai/artifact/6nPZxwjN2YKKkybmMro7Fm
 
@@ -24,6 +24,7 @@ Ranh giới service, dữ liệu và đường gọi: [`contracts/architecture.m
 | `services/content-service` | Tuyến, điểm tham quan, thuyết minh |
 | `services/ai-service` | Hỏi đáp (Bedrock), chỉ đọc |
 | `web/` | React + TypeScript + Vite |
+| `robot/` | ROS 2 + Nav2 chạy trên xe, có Docker dev riêng (xem `robot/README.md`) |
 | `simulator/` | Robot giả lập (Python) khi chưa có robot thật |
 | `contracts/` | `architecture.md`, `mqtt.md`, `openapi/*.yaml`: sửa ở đây trước khi sửa code |
 | `infra/` | Cấu hình hạ tầng dev (Mosquitto) |
@@ -57,6 +58,7 @@ Chạy web riêng khi dev giao diện: `cd web && npm install && npm run dev` (p
 ## Quy ước
 
 - Không commit chứng chỉ, khóa, `.env`.
-- `main` luôn chạy được; làm trên nhánh `feature/...`, gộp bằng pull request; CI (`.github/workflows/ci.yml`) build và test mọi service.
+- **Nhánh:** `main` là production (dùng để deploy, chỉ nhận từ `dev` khi phát hành). `dev` là nhánh làm việc chung. Mỗi việc làm trên nhánh `feature/...` tách từ `dev`, gộp lại vào `dev` bằng pull request.
+- **CI:** `.github/workflows/` có ba workflow (`services`, `web`, `robot`) chỉ chạy khi thư mục tương ứng đổi.
 - Đổi giao thức MQTT/API: sửa `contracts/` trước, báo cả team.
 - Lệnh điều khiển robot chỉ gọi nội bộ, không route qua gateway.

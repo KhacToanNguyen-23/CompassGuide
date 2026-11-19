@@ -1,6 +1,6 @@
 # CompassGuide Robot
 
-Phần robot của CompassGuide: ROS 2 + Nav2 chạy trên xe tự hành dẫn tour. Phần platform (AWS, web, microservice) nằm ở repo `CompassGuide`. Hợp đồng MQTT giữa hai bên nằm ở `contracts/mqtt.md` bên repo platform.
+Phần robot của CompassGuide: ROS 2 + Nav2 chạy trên xe tự hành dẫn tour. Cùng repo với phần platform (AWS, web, microservice, ở các thư mục `services/` và `web/`). Hợp đồng MQTT giữa hai bên nằm ở `../contracts/mqtt.md`.
 
 ## Nguyên tắc
 
@@ -53,5 +53,5 @@ Gazebo và RViz cần hiển thị đồ họa. Docker Desktop trên Windows kh�
 ## Quy ước
 
 - Không commit chứng chỉ AWS IoT, khóa, `.env`.
-- `main` luôn chạy được; làm trên nhánh `feature/...`, gộp bằng pull request.
+- Làm trên nhánh `feature/...` tách từ `dev`, gộp vào `dev` bằng pull request. `main` chỉ nhận từ `dev` khi cần phát hành.
 - Số đo từ robot thật (quãng phanh, sai số odometry, độ ổn định định vị) ghi vào `docs/`.
