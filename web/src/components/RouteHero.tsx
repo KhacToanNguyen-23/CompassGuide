@@ -63,6 +63,12 @@ export default function RouteHero() {
         role="img"
         aria-label="Minh họa: robot dẫn đoàn đi dọc tuyến và dừng ở ba điểm tham quan."
       >
+        <defs>
+          <pattern id="routegrid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" className="bp-gridline" />
+          </pattern>
+        </defs>
+        <rect width="800" height="260" fill="url(#routegrid)" />
         <path ref={pathRef} d={PATH} className="route-base" />
         <path d={PATH} className="route-flow" />
         <g transform="translate(40 200)">
@@ -89,7 +95,7 @@ export default function RouteHero() {
         {active >= 0
           ? `Điểm ${active + 1}: robot đã dừng và đang phát thuyết minh`
           : 'Đang dẫn đoàn tới điểm tiếp theo'}
-        <span className="muted"> · minh họa tuyến</span>
+        <span className="muted"> · Hình 2, tuyến minh họa</span>
       </div>
     </div>
   )
