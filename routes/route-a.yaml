@@ -1,0 +1,26 @@
+# Tuyến mẫu. Tọa độ là GIÁ TRỊ GIỮ CHỖ, sẽ đo lại trên bản đồ thật.
+route_id: route-a
+name: Tuyến A
+start:
+  x: 0.0
+  y: 0.0
+  yaw: 0.0
+pois:
+  - id: poi-1
+    name: Điểm 1
+    x: 1.0
+    y: 0.0
+    yaw: 0.0
+    audio: audio/poi-1.mp3
+  - id: poi-2
+    name: Điểm 2
+    x: 2.0
+    y: 1.0
+    yaw: 1.57
+    audio: audio/poi-2.mp3
+  - id: poi-3
+    name: Điểm 3
+    x: 3.0
+    y: 0.0
+    yaw: 3.14
+    audio: audio/poi-3.mp3
