@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: robot-gateway
+  title: robot-service
   version: 0.1.0
   description: Cầu nối MQTT với robot. Chỉ GET state được lộ ra ngoài qua gateway; commands chỉ gọi nội bộ.
 paths:

@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: ai-service
+  title: assistant-service
   version: 0.1.0
   description: Trợ lý hỏi đáp. Chỉ đọc kho kiến thức, không có đường tới robot. Gọi qua gateway tại /api/chat.
 paths:

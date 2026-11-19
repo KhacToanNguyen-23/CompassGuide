@@ -85,7 +85,7 @@ paths:
           description: Trạng thái không cho phép
   /internal/tours/{tourId}/events:
     post:
-      summary: NỘI BỘ. robot-gateway báo ack hoặc sự kiện của robot
+      summary: NỘI BỘ. robot-service báo ack hoặc sự kiện của robot
       operationId: reportRobotEvent
       parameters:
         - $ref: '#/components/parameters/TourId'

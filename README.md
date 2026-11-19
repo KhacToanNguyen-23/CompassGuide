@@ -9,7 +9,7 @@ SRS: https://claude.ai/artifact/6nPZxwjN2YKKkybmMro7Fm
 1. An toàn nằm trên robot, không chờ cloud.
 2. Robot chạy offline được.
 3. Cloud chỉ giao lệnh cấp tour: START, PAUSE, RESUME, END. Không có lệnh vận tốc.
-4. AI không có quyền điều khiển robot (`ai-service` chỉ đọc).
+4. AI không có quyền điều khiển robot (`assistant-service` chỉ đọc).
 5. Mỗi service sở hữu dữ liệu của mình; web chỉ gọi `api-gateway`.
 
 Ranh giới service, dữ liệu và đường gọi: [`contracts/architecture.md`](contracts/architecture.md).
@@ -20,9 +20,9 @@ Ranh giới service, dữ liệu và đường gọi: [`contracts/architecture.m
 | --- | --- |
 | `services/api-gateway` | Spring Cloud Gateway: định tuyến, CORS (xác thực sẽ thêm sau) |
 | `services/tour-service` | Vòng đời tour, lịch sử, sự kiện |
-| `services/robot-gateway` | Cầu nối MQTT với robot / AWS IoT Core |
+| `services/robot-service` | Cầu nối MQTT với robot / AWS IoT Core |
 | `services/content-service` | Tuyến, điểm tham quan, thuyết minh |
-| `services/ai-service` | Hỏi đáp (Bedrock), chỉ đọc |
+| `services/assistant-service` | Hỏi đáp (Bedrock), chỉ đọc |
 | `web/` | React + TypeScript + Vite |
 | `robot/` | ROS 2 + Nav2 chạy trên xe, có Docker dev riêng (xem `robot/README.md`) |
 | `simulator/` | Robot giả lập (Python) khi chưa có robot thật |
@@ -49,7 +49,7 @@ docker compose up --build
 | --- | --- |
 | Web | http://localhost:3000 |
 | api-gateway | http://localhost:8080/actuator/health |
-| tour / robot-gateway / content / ai | cổng 8081 / 8082 / 8083 / 8084 (`/actuator/health`) |
+| tour / robot / content / assistant | cổng 8081 / 8082 / 8083 / 8084 (`/actuator/health`) |
 | MQTT (Mosquitto) | localhost:1883 (WebSocket 9001) |
 | DynamoDB Local | http://localhost:8000 |
 

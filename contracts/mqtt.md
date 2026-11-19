@@ -1,6 +1,6 @@
 # Hợp đồng MQTT
 
-Nguồn sự thật cho giao tiếp giữa robot và platform. Sửa file này **trước**, rồi mới sửa code robot và `robot-gateway`.
+Nguồn sự thật cho giao tiếp giữa robot và platform. Sửa file này **trước**, rồi mới sửa code robot và `robot-service`.
 
 `{robotId}` là tên Thing của robot (ví dụ `robot-01`).
 
