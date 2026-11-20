@@ -1,0 +1,31 @@
+name: docs
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+      - ".github/workflows/docs.yml"
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+
+jobs:
+  validate-roadmap-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate ROS 2 roadmap PDF
+        run: |
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+
+          path = Path("docs/ros2-learning-roadmap.pdf")
+          data = path.read_bytes()
+          assert data.startswith(b"%PDF-"), "Missing PDF signature"
+          assert b"%%EOF" in data[-2048:], "Missing PDF end marker"
+          match = re.search(rb"/Type\s*/Pages\b.*?/Count\s+(\d+)", data, re.S)
+          assert match and int(match.group(1)) == 4, "Expected a four-page roadmap PDF"
+          print("Roadmap PDF is valid and has four pages.")
+          PY
